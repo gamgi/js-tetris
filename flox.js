@@ -93,7 +93,7 @@ if (typeof flox.namespace == 'undefined')
 		var timeFps = 0;//performance.now()+1000;
 		var fpsFrames = 0;
         var avgTimePerFrame = 0;
-        var oriTimePerFrame = timePerFrame;
+        var origTimePerFrame = timePerFrame;
 		//METHODS
 		this.update = function() {
 			timeNow = performance.now();
@@ -109,15 +109,36 @@ if (typeof flox.namespace == 'undefined')
                 //FPS = frames / (elapsed time in ms * 1000)
 				//this.fps = Math.round((fpsFrames) / (1000+(timeNow-timeFps)) * 1000);
                 avgTimePerFrame = (1000+timeNow-timeFps) / fpsFrames;
-				this.fps = fpsFrames+" "+avgTimePerFrame+" "+timePerFrame;
+				this.fps = fpsFrames;
+                //+" avg"+avgTimePerFrame.toFixed(3)+" "+timePerFrame.toFixed(3)+" "+Math.ceil(timeSinceUpdate)+"ms "+this.updateFrames+" "+(timePerFrame - timeSinceUpdate/(this.updateFrames+1)).toFixed(3);
                 // CHECK PERFORMANCE and adjust timePerFrame accordingly
-                if (avgTimePerFrame != Infinity && avgTimePerFrame < 50){
-                    if (avgTimePerFrame > timePerFrame+2){
-                        timePerFrame--;
-                    }else if (avgTimePerFrame < timePerFrame-2){
+                /*if ((avgTimePerFrame != Infinity) && avgTimePerFrame < 100){
+                    if (avgTimePerFrame > timePerFrame+1){
                         timePerFrame++;
+                    }else if (avgTimePerFrame < timePerFrame-1){
+                        timePerFrame--;
                     }
+                }*/
+                //TODO
+                if (avgTimePerFrame != Infinity && this.updateFrames != 0) {
+                    /*if (timeSinceUpdate > timePerFrame+1)
+                        timePerFrame = 0.25 * avgTimePerFrame + (1-0.25) * (timePerFrame);
+                    else if( timeSinceUpdate < timePerFrame-1)
+                        timePerFrame = 0.25 * avgTimePerFrame + (1-0.25) * (timePerFrame);*/
+                    if (timeSinceUpdate == 1000.0)
+                        timePerFrame+=this.updateFrames;
+                    else if (this.updateFrames > 5)
+                        //timePerFrame++;
+                        timePerFrame = 0.25 * (timeSinceUpdate / this.updateFrames)+ (1-0.25) * (timePerFrame);
+                    else if( this.updateFrames < 1)
+                        //timePerFrame--;
+                        timePerFrame = 0.25 * (timeSinceUpdate / this.updateFrames) + (1-0.25) * (timePerFrame);
+                    //if (avgTimePerFrame > timePerFrame + 1)
+                        //timePerFrame = 0.25 * avgTimePerFrame + (1-0.25) * (timePerFrame+1);
+                    //else if (avgTimePerFrame < timePerFrame + 1)
+                        //timePerFrame = 0.25 * avgTimePerFrame + (1-0.25) * (timePerFrame-1);
                 }
+                
 				fpsFrames = 0;
 				timeFps = performance.now()+1000; //sample every 1000 ms
 			}
@@ -165,6 +186,16 @@ if (typeof flox.namespace == 'undefined')
 			display.ctx.closePath();
 			display.ctx.fill();
 		}
+        this.box = function( x, y, w, h) {
+            var vertexArray = [[x,y],[x+w,y],[x+w,y+h],[x, y+h]];
+			display.ctx.beginPath();
+			display.ctx.moveTo(vertexArray[0][0], vertexArray[0][1]);
+			for (var i=1; i<vertexArray.length; i++){
+				display.ctx.lineTo(vertexArray[i][0], vertexArray[i][1]);
+			}
+			display.ctx.closePath();
+			display.ctx.fill();
+        };
 		this.line = function ( x1, y1, x2, y2) {
 			display.ctx.beginPath();
 			display.ctx.moveTo( x1, y1);
@@ -287,12 +318,26 @@ if (typeof flox.namespace == 'undefined')
     this.mouse = function() {
         this.x = 0;
         this.y = 0;
+        var hasMoved = false;
+        this.hasMoved = function() {
+            if (hasMoved){
+                hasMoved = false;
+                return true;
+            }
+            return false;
+        };
+        /*this.bindMove = function( moveCallback) {
+            if (moveCallback !== undefined)
+                display.canvas.addEventListener("mousemove", moveCallback, false);
+        };*/
         function mouseMove(event) {
             this.x = event.clientX + document.body.scrollLeft;
             this.y = event.clientY + document.body.scrollTop;
             this.x -= display.canvas.offsetLeft;
             this.y -= display.canvas.offsetTop;
+            hasMoved = true;
         }
+        //Constructor
         display.canvas.addEventListener("mousemove", mouseMove.bind(this), false);
     }
     this.keys = function() {
