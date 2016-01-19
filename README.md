@@ -1,4 +1,4 @@
-2D Bump Map
+Tetris
 ===========
 
 A simple Javascript tetris. Nothing special.
