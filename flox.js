@@ -125,14 +125,14 @@ if (typeof flox.namespace == 'undefined')
                         timePerFrame = 0.25 * avgTimePerFrame + (1-0.25) * (timePerFrame);
                     else if( timeSinceUpdate < timePerFrame-1)
                         timePerFrame = 0.25 * avgTimePerFrame + (1-0.25) * (timePerFrame);*/
-                    if (timeSinceUpdate == 1000.0)
-                        timePerFrame+=this.updateFrames;
-                    else if (this.updateFrames > 5)
+                   // if (timeSinceUpdate == 1000.0)
+                        //timePerFrame+=this.updateFrames;
+                    //else if (this.updateFrames > 5)
                         //timePerFrame++;
-                        timePerFrame = 0.25 * (timeSinceUpdate / this.updateFrames)+ (1-0.25) * (timePerFrame);
-                    else if( this.updateFrames < 1)
+                        //timePerFrame = 0.25 * (timeSinceUpdate / this.updateFrames)+ (1-0.25) * (timePerFrame);
+                    //else if( this.updateFrames < 1)
                         //timePerFrame--;
-                        timePerFrame = 0.25 * (timeSinceUpdate / this.updateFrames) + (1-0.25) * (timePerFrame);
+                        //timePerFrame = 0.25 * (timeSinceUpdate / this.updateFrames) + (1-0.25) * (timePerFrame);
                     //if (avgTimePerFrame > timePerFrame + 1)
                         //timePerFrame = 0.25 * avgTimePerFrame + (1-0.25) * (timePerFrame+1);
                     //else if (avgTimePerFrame < timePerFrame + 1)
