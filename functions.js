@@ -415,6 +415,7 @@ var GAME = (function(){
             viH.setFillStyle( "white");
             viH.text("Loading", viH.screenWidth()/2, viH.screenHeight()/2 );
             viH.update();
+            imgH.loadImage('bg', './image_small.jpg');
 			screenW = viH.screenWidth();
 			screenH = viH.screenHeight();
             //Start timer
