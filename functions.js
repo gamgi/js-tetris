@@ -18,27 +18,7 @@ var GAME = (function(){
         var levelWidth = 10;
         var levelHeight = 24;
         //Blocks
-        var blockModels = [
-                            [1, 1,
-                             1, 1],
-
-                            [1, 1, 0,
-                             0, 1, 1],
-
-                            [0, 1, 0,
-                             1, 1, 1],
-
-                            [0, 0, 1,
-                             1, 1, 1],
-
-                            [0, 0, 0, 0,
-                             1, 1, 1, 1],
-                            
-                            [0, 1, 1,
-                             1, 1, 0],
-                             
-                            [1, 0, 0,
-                             1, 1, 1] ];
+        var blockModels = [ [1, 1, 0, 0, 1, 1, 0, 0], [1, 1, 0, 0, 0, 1, 1, 0], [0, 1, 0, 0, 1, 1, 1, 0], [0, 0, 1, 0, 1, 1, 1, 0], [1, 1, 1, 1], [0, 1, 1, 0, 1, 1, 0, 0], [1, 0, 0, 0, 1, 1, 1, 0] ];
         var blocks = [];
         var colors = ['red', 'green', 'blue', 'orange', 'yellow','brown','lightblue'];
         var moveTime = 0;
@@ -258,32 +238,7 @@ var GAME = (function(){
         }
         function getBlock( type, angle){ 
             var result = [ [0,0,0,0], [0,0,0,0], [0,0,0,0], [0,0,0,0]];
-            //var result = [];
-            var width = blockModels[ type].length / 2 - 1;
-            var rx,ry;
-            for (var y = 0; y<2; ++y) {
-                for (var x = 0; x<=width; ++x) {
-                    rx = x;
-                    ry = y;
-                    if (blockModels[ type][x + y*(width+1)] != 1){
-                        continue;
-                    }
-                    if (angle == 1){
-                        rx = y;
-                        ry = width-x;
-                    }else if( angle == 2){
-                        rx = width-x;
-                        ry = width-y;
-                    }else if (angle == 3){
-                        rx = width-y;
-                        ry = x;
-                    }
-                    // Read block into result
-                    result[ry][rx] = 1;
-                }
-            }
-            //dump( result[ry]+" \n"); 
-            /*for (var i = 0; i<blockModels[ type].length; ++i) {
+            for (var i = 0; i<blockModels[ type].length; ++i) {
                 var x,y;
                 if (blockModels[ type][i] == 1){
                     x = i.mod( 4);
@@ -321,7 +276,7 @@ var GAME = (function(){
                 }
                 if (sum == 0) //empty row
                     result.splice(i,1);
-            }*/
+            }
             return result;
         }
         function checkHit( bx, by) {
