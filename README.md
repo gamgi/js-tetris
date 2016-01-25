@@ -1,9 +1,9 @@
 Tetris
 ===========
 
-A simple Javascript tetris in less than 500 rows of JavaScript.
-No external libraries used. 
-Live demo can be played [here](http://gamgi.github.io/js-tetris/).
+A simple Javascript tetris in less than 500 rows of JavaScript.  
+No external libraries used.  
+Live demo can be played [here](http://gamgi.github.io/js-tetris/).  
 
 Limitations
 -----------
