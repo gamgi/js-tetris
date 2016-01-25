@@ -2,24 +2,32 @@
 <html>
     <head>
         <title>Tetris in Javascript</title>
-        <meta charset="utf-8" />
-        <link rel="stylesheet" href="style.css" />
-        <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-    </head>
+        <meta charset="utf-8" /><html>
+        <style type="text/css">
+            html, body {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                background-color: gray;
+            }
+            #frame {
+                margin: 0 auto;
+                width: 100%;
+                text-align: center;
+            }
+            #screen {
+                margin-left: 150px; /* width of canvas is 300, requires 150px on left to be "centered" */
+            }
+            a {
+                color: white;
+            }
+        </style>
     <body>
-    <h1>Tetris</h1>
-    <div id="canvas-frame">
-        <canvas id="screen">Loading...</canvas>
-        <div id="canvas-menu">
-            <input type="button" onClick="toggleFullScreen()" value="Fullscreen" />
-        </div>
-    </div>
-    <!-- Javascript sourcefiles -->
-    <script src="flox.js"></script>
-    <script src="main.js"></script>
-    <script>
-</script>
-</body>
+        <div id="frame"><canvas id="screen"></canvas></frame>
+        <script src="engine.js"></script>
+        <script src="game.js"></script>
+        <br />
+        <a href="http://gamgi.github.io/">Back to stuff..</a>
+    </body>
 </html>
+
