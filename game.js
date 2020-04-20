@@ -38,7 +38,7 @@ GAME = (function() {
              
             [1, 0, 0,
              1, 1, 1]];
-        var colors = ['red', 'green', 'blue', 'orange', 'yellow','brown','lightblue'];
+        var colors = ['yellow', 'red', 'purple', 'orange', 'lightblue', 'green', 'blue'];
         var playfield = [];
         var block = newBlock();
         var nextBlock = newBlock();
